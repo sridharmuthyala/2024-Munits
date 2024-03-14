@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="ap-master21-s-global-error.xml" />
+	
+	
+	<munit:test name="ap-master21-s-api-APIKIT:NOT_FOUND" doc:id="c474465d-7ebe-471b-b733-7b299a7639c8" expectedErrorType="APIKIT:NOT_FOUND" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Error APIKIT:NOT_FOUND" doc:id="9b5fd870-0d4a-42a4-9afc-90326aa472a8" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ap-master21-s-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_FOUND" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Main Flow" doc:id="1df6940a-1b34-49a8-83a9-fdf778f15ba1" name="ap-master21-s-api-main" />
+		
+</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Status Code" doc:id="f24d0362-96c9-415d-a5c8-3e27d177ebbf" actual="#[vars.httpStatus]" expected="#[404]"/>
+		</munit:validation>
+	</munit:test>
+	
+	
+	<munit:test name="ap-master21-s-api-APIKIT:METHOD_NOT_ALLOWED" doc:id="66ae6874-d772-420e-88cf-c7e3cb594e60" expectedErrorType="APIKIT:METHOD_NOT_ALLOWED" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Error APIKIT:BAD_REQUEST" doc:id="9bc5c6e8-c7d4-4982-9072-b3368c798948" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ap-master21-s-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:METHOD_NOT_ALLOWED" />
+				</munit-tools:then-return>
+			
+
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Main Flow" doc:id="7fd315f3-62f7-4deb-af28-c9af288f37b7" name="ap-master21-s-api-main" />
+		
+</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Status Code" doc:id="25ebb02e-2fec-403d-9905-203649d94dde" actual="#[vars.httpStatus]" expected="#[405]"/>
+		</munit:validation>
+	</munit:test>
+
+
+<munit:test name="ap-master21-s-api-APIKIT:NOT_ACCEPTABLE" doc:id="104bb45c-8892-4edb-83ba-bad552ef7299" expectedErrorType="APIKIT:NOT_ACCEPTABLE" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Error APIKIT:BAD_REQUEST" doc:id="8c148a77-7d1b-408c-ba89-6d11721b4f8b" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ap-master21-s-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_ACCEPTABLE" />
+				</munit-tools:then-return>
+			
+
+
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Main Flow" doc:id="d051ec41-0c53-4c76-9c3f-1380a7b18f10" name="ap-master21-s-api-main" />
+		
+</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Status Code" doc:id="35c047f8-f1d0-40e3-b3ef-ab08ed8f110b" actual="#[vars.httpStatus]" expected="#[406]"/>
+		</munit:validation>
+	</munit:test>
+	
+	
+	<munit:test name="ap-master21-s-api-APIKIT:UNSUPPORTED_MEDIA_TYPE" doc:id="d400308c-8cff-402e-bcc8-f07aea580f4f" expectedErrorType="APIKIT:UNSUPPORTED_MEDIA_TYPE">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Mock Error APIKIT:UNSUPPORTED_MEDIA_TYPE" doc:id="58fd0946-2b5a-4cd9-a001-a8250c615695" processor="apikit:router">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute whereValue="ap-master21-s-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="APIKIT:UNSUPPORTED_MEDIA_TYPE" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="Main Flow" doc:id="218755f2-c399-446e-9f48-8b7c825af99a" name="ap-master21-s-api-main" />
+		
+</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-equals doc:name="Status Code" doc:id="cb69c6a5-38e6-4b60-8303-3045de3347cc" actual="#[vars.httpStatus]" expected="#[415]" />
+		</munit:validation>
+	</munit:test>
+	
+	
+	
+	
+	
+	<munit:test name="ap-master21-s-api-APIKIT:NOT_IMPLEMENTED" doc:id="aade709d-e2e3-4b6f-98dc-d68054277708" expectedErrorType="APIKIT:NOT_IMPLEMENTED">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Mock Error APIKIT:UNSUPPORTED_MEDIA_TYPE" doc:id="c9478b42-09e9-452a-bd66-4a38399d712e" processor="apikit:router">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute whereValue="ap-master21-s-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_IMPLEMENTED" />
+				</munit-tools:then-return>
+			
+
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="Main Flow" doc:id="85f5d972-6307-49a1-934c-263605f96519" name="ap-master21-s-api-main" />
+		
+</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-equals doc:name="Status Code" doc:id="3f1f0045-2359-4919-a77c-604e3cd8e648" actual="#[vars.httpStatus]" expected="#[501]" />
+		</munit:validation>
+	</munit:test>	
+	
+</mule>
